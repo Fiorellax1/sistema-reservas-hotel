@@ -1,0 +1,22 @@
+name: CI 1 - Validación de HTML
+on:
+  push:
+    branches: [develop, 'feature/**']
+    paths:
+      - 'frontend/**'
+      - '.htmlvalidate.json'
+      - 'package.json'
+  pull_request:
+    branches: [develop, main]
+jobs:
+  validar-html:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Instalar dependencias
+        run: npm ci
+      - name: Ejecutar validación
+        run: npm run validate:html
