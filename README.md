@@ -69,3 +69,6 @@ npm run validate:html
 En el repositorio GitHub del equipo, consulta de disponibilidad corresponde al issue **#3** y gestión de reservas al **#8**. En los Pull Requests puedes incluir `Refs #3` o `Refs #8` para pasar el control de trazabilidad sin cerrar las actividades automáticamente.
 
 No se incluyen capturas o ejecuciones de GitHub Actions fabricadas. Las evidencias deben obtenerse después de ejecutar los workflows reales.
+
+## Verificaciones del proyecto
+El sistema incluye validacion HTML, ESLint, pruebas unitarias de reservas y comprobacion de estructura y trazabilidad mediante GitHub Actions.
