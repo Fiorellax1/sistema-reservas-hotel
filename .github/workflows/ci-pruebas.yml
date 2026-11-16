@@ -1,0 +1,21 @@
+name: CI 3 - Pruebas unitarias de reservas
+on:
+  push:
+    branches: [develop, 'feature/**']
+  pull_request:
+    branches: [develop, main]
+jobs:
+  pruebas:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node: ['20', '22']
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+      - name: Instalar dependencias
+        run: npm ci
+      - name: Ejecutar las 10 pruebas
+        run: npm test

@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hotel Andino | Reservas</title>
+  <meta name="description"
+    content="Reserva tu próxima estancia en Hotel Andino. Consulta habitaciones y administra tus reservas.">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+  <div id="pantallaAcceso" class="acceso">
+    <aside class="acceso-visual">
+      <a class="marca marca-clara" href="index.html"><span class="logo">HA</span><span>HOTEL ANDINO<small>Descansa a tu
+            manera</small></span></a>
+      <div class="acceso-presentacion"><span class="sobrelinea">BIENVENIDO A TU PRÓXIMA ESTANCIA</span>
+        <h1>Tu lugar para descansar empieza aquí.</h1>
+        <p>Descubre nuestras habitaciones, reserva con facilidad y organiza tu próxima visita.</p>
+        <div class="linea-dorada"></div>
+      </div>
+      <p class="pie-visual">Hotel Andino · Reservas en línea</p>
+    </aside>
+    <main class="acceso-formulario">
+      <div class="caja-acceso">
+        <div class="acceso-encabezado"><span class="texto-suave">BIENVENIDO</span>
+          <h2 id="tituloAcceso">Iniciar sesión</h2>
+          <p id="descripcionAcceso">Ingresa a tu cuenta para gestionar tus reservas.</p>
+        </div>
+        <div id="errorAcceso" class="alerta error" role="alert" hidden></div>
+        <form id="formLogin" class="form-vertical">
+          <label>Correo electrónico<input name="correo" type="email" autocomplete="email" placeholder="tu@correo.com"
+              maxlength="100" required></label>
+          <label>Contraseña<input name="password" type="password" autocomplete="current-password" minlength="8" required
+              placeholder="Tu contraseña"></label>
+          <button class="boton principal" type="submit">Ingresar a mi cuenta</button>
+          <p class="enlace-alternativo">¿Aún no tienes una cuenta? <button type="button" class="enlace"
+              id="irRegistro">Regístrate</button></p>
+        </form>
+        <form id="formRegistro" class="form-vertical" hidden>
+          <div class="doble"><label>Nombres<input type="text" name="nombres" autocomplete="given-name" maxlength="60"
+                required></label><label>Apellidos<input type="text" name="apellidos" autocomplete="family-name" maxlength="60"
+                required></label></div>
+          <label>Correo electrónico<input name="correo" type="email" autocomplete="email" maxlength="100"
+              required></label>
+          <label>Teléfono<input name="telefono" type="tel" maxlength="20" required></label>
+          <label>Contraseña<input name="password" type="password" minlength="8" maxlength="72"
+              autocomplete="new-password" required></label>
+          <label>Confirmar contraseña<input name="confirmacion" type="password" minlength="8" maxlength="72"
+              autocomplete="new-password" required></label>
+          <details class="acceso-personal">
+            <summary>¿Trabajas en el hotel?</summary><label>Código de acceso del personal<input name="codigoPersonal"
+                type="password" autocomplete="off" placeholder="Código proporcionado por administración"></label>
+          </details>
+          <button class="boton principal" type="submit">Crear mi cuenta</button>
+          <p class="enlace-alternativo">¿Ya tienes una cuenta? <button type="button" class="enlace" id="irLogin">Inicia
+              sesión</button></p>
+        </form>
+      </div>
+    </main>
+  </div>
+  <div id="aplicacion" hidden>
+    <header class="cabecera">
+      <div class="cabecera-interior"><a class="marca" href="#inicio"><span class="logo">HA</span><span>HOTEL
+            ANDINO<small>Reservas en línea</small></span></a>
+        <div class="cuenta"><span id="saludoCuenta"></span><button type="button" id="cerrarSesion" class="boton boton-salir">Cerrar
+            sesión</button></div>
+      </div>
+    </header>
+    <div class="contenedor">
+      <nav class="navegacion" aria-label="Navegación principal">
+        <button type="button" class="nav-item activa" data-tab="inicio">Inicio</button><button type="button" class="nav-item"
+          data-tab="habitaciones">Habitaciones</button><button type="button" class="nav-item"
+          data-tab="reservar">Reservar</button><button type="button" class="nav-item" data-tab="misReservas">Mis
+          reservas</button><button type="button" class="nav-item" data-tab="administracion" id="enlaceAdmin"
+          hidden>Administración</button>
+      </nav>
+      <div id="mensaje" class="alerta" role="status" aria-live="polite" hidden></div>
+      <section class="seccion activa" id="inicio">
+        <div class="hero">
+          <div class="hero-copy"><span class="sobrelinea">HOTEL ANDINO · RESERVAS</span>
+            <h1>Un descanso que se adapta a ti.</h1>
+            <p>Explora nuestras habitaciones, elige tus fechas y confirma tu próxima estancia.</p><button
+              class="boton dorado" type="button" data-ir="reservar">Reservar una habitación <span
+                aria-hidden="true">→</span></button>
+          </div>
+          <div class="hero-visual">
+            <div class="linea-arte"></div><span>UNA NUEVA EXPERIENCIA<br>DE HOSPITALIDAD</span>
+          </div>
+        </div>
+        <div class="resumen" id="resumenInicio"></div>
+        <div class="titulo-seccion">
+          <div><span class="texto-suave">TU PRÓXIMA ESTANCIA</span>
+            <h2>Habitaciones destacadas</h2>
+          </div><button type="button" class="boton borde" data-ir="habitaciones">Ver todas</button>
+        </div>
+        <div id="destacadas" class="grid-habitaciones"></div>
+      </section>
+      <section class="seccion" id="habitaciones">
+        <div class="titulo-seccion">
+          <div><span class="texto-suave">CONOCE EL HOTEL</span>
+            <h2>Nuestras habitaciones</h2>
+            <p>Encuentra el espacio ideal para tu viaje.</p>
+          </div>
+        </div>
+        <div id="tarjetasHabitaciones" class="grid-habitaciones"></div>
+      </section>
+      <section class="seccion" id="reservar">
+        <div class="titulo-seccion">
+          <div><span class="texto-suave">RESERVAS EN LÍNEA</span>
+            <h2>Reserva tu habitación</h2>
+            <p>Selecciona las fechas y conoce nuestras habitaciones disponibles.</p>
+          </div>
+        </div>
+        <div class="panel-form">
+          <form id="formBuscar" class="form-grid"><label>Fecha de entrada<input type="date" name="entrada"
+                required></label><label>Fecha de salida<input type="date" name="salida" required></label><button
+              class="boton principal" type="submit">Buscar disponibilidad</button></form>
+        </div>
+        <div id="resultadoBusqueda" class="resultado-busqueda">
+          <div class="estado-vacio">Selecciona las fechas de tu estancia para consultar las habitaciones disponibles.
+          </div>
+        </div>
+      </section>
+      <section class="seccion" id="misReservas">
+        <div class="titulo-seccion">
+          <div><span class="texto-suave">TU HISTORIAL</span>
+            <h2>Mis reservas</h2>
+            <p>Consulta los detalles de tus estancias y cancela tus reservas cuando lo necesites.</p>
+          </div>
+        </div>
+        <div id="listaMisReservas" class="lista-reservas"></div>
+      </section>
+      <section class="seccion" id="administracion">
+        <div class="titulo-seccion">
+          <div><span class="texto-suave">GESTIÓN INTERNA</span>
+            <h2>Panel de administración</h2>
+            <p>Gestiona habitaciones, clientes y todas las reservas del hotel.</p>
+          </div>
+        </div>
+        <div class="panel-admin">
+          <div class="panel-form">
+            <h3>Registrar habitación</h3>
+            <form id="formHabitacion" class="form-grid"><label>Número<input type="text" name="numero" maxlength="12" required
+                  placeholder="Ej. 303"></label><label>Tipo<select name="tipo">
+                  <option>Simple</option>
+                  <option>Doble</option>
+                  <option>Matrimonial</option>
+                  <option>Familiar</option>
+                </select></label><label>Capacidad<input name="capacidad" type="number" min="1" max="10" value="2"
+                  required></label><label>Precio por noche (S/)<input name="precio" type="number" min="1" step="0.01"
+                  required></label><button class="boton principal" type="submit">Guardar habitación</button></form>
+          </div>
+          <div class="panel-form">
+            <h3>Registrar huésped</h3>
+            <form id="formCliente" class="form-grid"><label>Nombres<input type="text" name="nombres" required
+                  maxlength="60"></label><label>Apellidos<input type="text" name="apellidos" required
+                  maxlength="60"></label><label>Documento de identidad<input type="text" name="dni" minlength="8" maxlength="12"
+                  required></label><label>Teléfono<input type="tel" name="telefono" required
+                  maxlength="20"></label><label>Correo<input name="correo" type="email" required></label><button
+                class="boton principal" type="submit">Guardar huésped</button></form>
+          </div>
+        </div>
+        <div class="panel-form">
+          <h3>Habitaciones registradas</h3>
+          <div class="tabla-scroll">
+            <table>
+              <thead>
+                <tr>
+                  <th>Número</th>
+                  <th>Tipo</th>
+                  <th>Capacidad</th>
+                  <th>Precio/noche</th>
+                </tr>
+              </thead>
+              <tbody id="tablaHabitaciones"></tbody>
+            </table>
+          </div>
+        </div>
+        <div class="panel-form">
+          <h3>Clientes registrados</h3>
+          <div class="tabla-scroll">
+            <table>
+              <thead>
+                <tr>
+                  <th>Nombre</th>
+                  <th>Documento</th>
+                  <th>Teléfono</th>
+                  <th>Correo</th>
+                </tr>
+              </thead>
+              <tbody id="tablaClientes"></tbody>
+            </table>
+          </div>
+        </div>
+        <div class="panel-form">
+          <h3>Todas las reservas</h3>
+          <div class="tabla-scroll">
+            <table>
+              <thead>
+                <tr>
+                  <th>Cliente</th>
+                  <th>Habitación</th>
+                  <th>Entrada</th>
+                  <th>Salida</th>
+                  <th>Estado</th>
+                  <th>Acción</th>
+                </tr>
+              </thead>
+              <tbody id="tablaTodasReservas"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+    </div>
+    <footer>© 2026 Hotel Andino · Gestión de reservas</footer>
+  </div>
+  <script type="module" src="js/app.js"></script>
+</body>
+
+</html>

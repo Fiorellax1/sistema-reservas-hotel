@@ -1,0 +1,17 @@
+{
+  "name": "sistema-reservas-hotel",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Frontend académico de gestión de reservas hoteleras y automatización CI/CD",
+  "scripts": {
+    "test": "node --test test/*.test.js",
+    "lint": "eslint frontend/js test",
+    "validate:html": "html-validate frontend/index.html",
+    "check:structure": "bash scripts/verificar-estructura.sh"
+  },
+  "devDependencies": {
+    "eslint": "^9.20.0",
+    "html-validate": "^9.7.1"
+  }
+}

@@ -1,0 +1,23 @@
+name: CI 2 - Análisis estático de JavaScript
+on:
+  push:
+    branches: [develop, 'feature/**']
+    paths:
+      - 'frontend/**/*.js'
+      - 'test/**'
+      - 'eslint.config.js'
+      - 'package.json'
+  pull_request:
+    branches: [develop, main]
+jobs:
+  eslint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Instalar dependencias
+        run: npm ci
+      - name: Ejecutar validación
+        run: npm run lint
