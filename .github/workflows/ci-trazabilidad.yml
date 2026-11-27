@@ -1,9 +1,11 @@
 name: CI 4 - Estructura y trazabilidad
+
 on:
   push:
-    branches: [develop, 'feature/**']
-    pull_request:
-    branches: [develop, main]
+    branches: [main, develop, 'feature/**']
+
+  pull_request:
+    branches: [main, develop]
     types: [opened, synchronize, reopened, edited]
 permissions:
   contents: read
