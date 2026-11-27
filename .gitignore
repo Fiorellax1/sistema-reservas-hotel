@@ -1,5 +1,19 @@
+
+# Dependencias
 node_modules/
-.DS_Store
-.vscode/
-*.log
+
+# Variables privadas
 .env
+.env.*
+!.env.example
+
+# Archivos temporales
+*.log
+.DS_Store
+
+# Configuración local
+.vscode/
+
+# Archivos de respaldo
+*.bak
+*.tmp
