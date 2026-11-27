@@ -198,7 +198,7 @@ export async function verificarSesionActual() {
 
     return usuarioVerificado;
 
-  } catch (error) {
+  } catch {
     // Si el backend rechaza el token o no está disponible,
     // cerrar la sesión local por precaución.
     cerrarSesion();
