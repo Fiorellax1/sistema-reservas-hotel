@@ -1,0 +1,80 @@
+
+# ============================================================
+# HOTEL ANDINO - DOCKER COMPOSE
+# Frontend + Backend + MySQL
+# ============================================================
+
+services:
+
+  # ----------------------------------------------------------
+  # BASE DE DATOS MYSQL
+  # ----------------------------------------------------------
+  mysql:
+    image: mysql:8.0
+    restart: unless-stopped
+
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: hotel_andino
+      MYSQL_USER: hotel_app
+      MYSQL_PASSWORD: ${MYSQL_APP_PASSWORD}
+
+    volumes:
+      - mysql_datos:/var/lib/mysql
+      - ./backend/sql/schema.sql:/docker-entrypoint-initdb.d/01-schema.sql:ro
+
+    healthcheck:
+      test:
+        - CMD-SHELL
+        - mysqladmin ping -h localhost -u root -p"$$MYSQL_ROOT_PASSWORD"
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 30s
+
+  # ----------------------------------------------------------
+  # BACKEND NODE.JS + EXPRESS
+  # ----------------------------------------------------------
+  backend:
+    build:
+      context: ./backend
+
+    restart: unless-stopped
+
+    environment:
+      NODE_ENV: production
+      PORT: 3000
+      DB_HOST: mysql
+      DB_PORT: 3306
+      DB_USER: hotel_app
+      DB_PASSWORD: ${MYSQL_APP_PASSWORD}
+      DB_NAME: hotel_andino
+      JWT_SECRET: ${JWT_SECRET}
+
+    depends_on:
+      mysql:
+        condition: service_healthy
+
+    expose:
+      - "3000"
+
+  # ----------------------------------------------------------
+  # FRONTEND NGINX
+  # ----------------------------------------------------------
+  frontend:
+    build:
+      context: ./frontend
+
+    restart: unless-stopped
+
+    ports:
+      - "8080:80"
+
+    depends_on:
+      - backend
+
+# ------------------------------------------------------------
+# VOLUMEN PARA CONSERVAR LOS DATOS DE MYSQL
+# ------------------------------------------------------------
+volumes:
+  mysql_datos:
